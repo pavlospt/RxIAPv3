@@ -21,7 +21,6 @@ import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
 import com.pavlospt.androidiap.models.PurchaseDataModel;
-import com.pavlospt.androidiap.models.TransactionDetails;
 
 import java.util.ArrayList;
 import java.util.List;

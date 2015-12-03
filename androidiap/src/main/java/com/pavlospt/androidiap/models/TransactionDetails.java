@@ -1,5 +1,5 @@
 /**
- * Copyright 2014 AnjLab
+ * Copyright 2015 Pavlos-Petros Tournaris
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,7 @@
  */
 package com.pavlospt.androidiap.models;
 
-import com.bluelinelabs.logansquare.annotation.JsonField;
-import com.bluelinelabs.logansquare.annotation.JsonObject;
-import com.pavlospt.androidiap.utils.JsonProperties;
-
-import java.util.Date;
-
-//@JsonObject
 public class TransactionDetails {
-
-//    @JsonField(name = JsonProperties.RESPONSE_DATA_ORDER_ID)
-//    private String productId;
-//
-//    @JsonField(name = JsonProperties.RESPONSE_DATA_ORDER_ID)
-//    private String orderId;
-//
-//    @JsonField(name = JsonProperties.RESPONSE_DATA_PURCHASE_TOKEN)
-//	private String purchaseToken;
-//
-//    @JsonField(name = JsonProperties.RESPONSE_DATA_PURCHASE_TIME)
-//	private long purchaseTime;
 
 	private PurchaseDataModel purchaseDataModel;
 
@@ -49,42 +30,6 @@ public class TransactionDetails {
     public TransactionDetails(String id, PurchaseDataModel dataModel) {
         purchaseDataModel = dataModel;
     }
-
-//    public Date getPurchaseDate() {
-//        return new Date(purchaseTime);
-//    }
-//
-//    public String getProductId() {
-//        return productId;
-//    }
-//
-//    public void setProductId(String productId) {
-//        this.productId = productId;
-//    }
-//
-//    public String getOrderId() {
-//        return orderId;
-//    }
-//
-//    public void setOrderId(String orderId) {
-//        this.orderId = orderId;
-//    }
-//
-//    public String getPurchaseToken() {
-//        return purchaseToken;
-//    }
-//
-//    public void setPurchaseToken(String purchaseToken) {
-//        this.purchaseToken = purchaseToken;
-//    }
-//
-//    public long getPurchaseTime() {
-//        return purchaseTime;
-//    }
-//
-//    public void setPurchaseTime(long purchaseTime) {
-//        this.purchaseTime = purchaseTime;
-//    }
 
     public PurchaseDataModel getPurchaseDataModel() {
         return purchaseDataModel;
