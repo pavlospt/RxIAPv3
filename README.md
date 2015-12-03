@@ -1,5 +1,12 @@
 # RxIAPv3
 Android In-App Billing Library which provides several Rx Methods for Purchasing, Consuming and Listing Products
+Based on the initial work of Anjlab (https://github.com/anjlab/android-inapp-billing-v3).
+
+This library provides the existing functionality of Anjlab's initial work and as well a lot of helper methods that let you extract more information on the workflow of a purchase or a consume. It also uses Hawk (https://github.com/orhanobut/hawk) for the needs of caching products purchased and data of the purchases. 
+
+DISCLAIMER
+==========
+The project has some more work before it can be used in production. This is an Alpha level release. If you use it for production applications, please do that on your own responsibility.
 
 
 Credits
@@ -14,6 +21,9 @@ LinkedIn : [Pavlos-Petros Tournaris](https://www.linkedin.com/pub/pavlos-petros-
 
 (In case you use this in your app let me know to make a list of apps that use it! )
 
+Hawk Library : [Hawk](https://github.com/orhanobut/hawk)
+
+Anjlab's Initial Library : [Anjlab IAB v3](https://github.com/anjlab/android-inapp-billing-v3)
 
 License
 =======
