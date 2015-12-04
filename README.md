@@ -4,6 +4,8 @@ Based on the initial work of Anjlab (https://github.com/anjlab/android-inapp-bil
 
 This library provides the existing functionality of Anjlab's initial work and as well a lot of helper methods that let you extract more information on the workflow of a purchase or a consume. It also uses Hawk (https://github.com/orhanobut/hawk) for the needs of caching products purchased and data of the purchases. 
 
+This project is open to a lot of modifications to be better. I will try fixing a lot of things as the time goes by. I am also open to any pull request that can help the project :) 
+
 DISCLAIMER
 ==========
 The project has some more work before it can be used in production. This is an Alpha level release. If you use it for production applications, please do that on your own responsibility.
@@ -32,6 +34,9 @@ Facebook : [Pavlos-Petros Tournaris](https://www.facebook.com/pavlospt)
 LinkedIn : [Pavlos-Petros Tournaris](https://www.linkedin.com/pub/pavlos-petros-tournaris/44/abb/218)
 
 (In case you use this in your app let me know to make a list of apps that use it! )
+
+Library Credits
+===============
 
 Hawk Library : [Hawk](https://github.com/orhanobut/hawk)
 
