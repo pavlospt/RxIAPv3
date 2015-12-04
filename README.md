@@ -8,6 +8,18 @@ DISCLAIMER
 ==========
 The project has some more work before it can be used in production. This is an Alpha level release. If you use it for production applications, please do that on your own responsibility.
 
+How To Install
+==============
+
+This library is available on MavenCentral and on Bintray as well. All you need to do is add the following dependency on your application's ```build.gradle``` file.
+
+```
+compile 'com.github.pavlospt:rxiapv3:1.0'
+```
+
+How To Use
+==========
+Check the [Wiki Page]() of the Library for instructions on how to use it.
 
 Credits
 =======
