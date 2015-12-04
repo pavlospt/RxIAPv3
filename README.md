@@ -19,7 +19,7 @@ compile 'com.github.pavlospt:rxiapv3:1.0'
 
 How To Use
 ==========
-Check the [Wiki Page]() of the Library for instructions on how to use it.
+Check the [Wiki Page](https://github.com/pavlospt/RxIAPv3/wiki) of the Library for instructions on how to use it.
 
 Credits
 =======
