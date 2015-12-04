@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     }
 
     @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
+    public void onProductPurchased(String productId, PurchaseDataModel purchaseDataModel) {
 
     }
 

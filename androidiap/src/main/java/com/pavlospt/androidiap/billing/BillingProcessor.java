@@ -66,7 +66,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 	 */
 	public interface BillingProcessorListener {
 
-		void onProductPurchased(String productId, TransactionDetails details);
+		void onProductPurchased(String productId, PurchaseDataModel purchaseDataModel);
 
 		void onPurchaseHistoryRestored();
 
@@ -112,9 +112,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
     public static void init(Context context) {
         Hawk.init(context)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-//                .setStorage(HawkBuilder.newSqliteStorage(context))
                 .setStorage(HawkBuilder.newSharedPrefStorage(context))
-//                .setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE)
                 .setLogLevel(LogLevel.FULL)
                 .setCallback(new HawkBuilder.Callback() {
                     @Override
@@ -138,9 +136,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 		super(context);
         Hawk.init(context)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-//                .setStorage(HawkBuilder.newSqliteStorage(context))
                 .setStorage(HawkBuilder.newSharedPrefStorage(context))
-//                .setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE)
                 .setLogLevel(LogLevel.FULL)
                 .setCallback(new HawkBuilder.Callback() {
                     @Override
@@ -409,7 +405,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                         cache.put(purchaseDataModel);
                         if (billingProcessorListener != null)
                             billingProcessorListener.onProductPurchased(productId,
-                                    new TransactionDetails(purchaseDataModel));
+                                    purchaseDataModel);
                     } else {
                         Log.e(LOG_TAG, "Public key signature doesn't match!");
                         if (billingProcessorListener != null)
@@ -760,8 +756,8 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                 } else if (response == Constants.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
                     if (!isPurchased(productId) && !isSubscribed(productId))
                         loadOwnedPurchasesFromGoogle();
-                    TransactionDetails details = new TransactionDetails(cachedProducts.getDetails(productId));
-                    if (!checkMerchantTransactionDetails(details)) {
+                    PurchaseDataModel details = cachedProducts.getDetails(productId);
+                    if (!checkMerchant(details)) {
                         Log.i(LOG_TAG, "Invalid or tampered merchant id!");
                         if (billingProcessorListener != null)
                             billingProcessorListener.onBillingError(Constants.BILLING_ERROR_INVALID_MERCHANT_ID, null);
@@ -769,7 +765,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                     }
                     if (billingProcessorListener != null) {
                         if (details == null)
-                            details = getSubscriptionTransactionDetails(productId);
+                            details = cachedSubscriptions.getDetails(productId);
                         billingProcessorListener.onProductPurchased(productId, details);
                     }
                 } else if (billingProcessorListener != null)
