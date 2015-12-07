@@ -1,3 +1,5 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RxIAPv3-green.svg?style=true)](https://android-arsenal.com/details/1/2879)
+
 # RxIAPv3
 Android In-App Billing Library which provides several Rx Methods for Purchasing, Consuming and Listing Products
 Based on the initial work of Anjlab (https://github.com/anjlab/android-inapp-billing-v3).
