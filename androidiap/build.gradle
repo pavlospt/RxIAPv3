@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 ext {
     PUBLISH_GROUP_ID = 'com.github.pavlospt'
     PUBLISH_ARTIFACT_ID = 'rxiapv3'
-    PUBLISH_VERSION = '1.1'
+    PUBLISH_VERSION = '1.2'
 }
 
 android {
@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
     }
 
 }
@@ -26,6 +26,11 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.16'
     compile 'com.github.orhanobut:hawk:1.20'
+    compile 'com.android.support:support-annotations:23.1.1'
 }
 
+//Maven Central Push
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+
+//Bintray Push
+//apply from: 'https://raw.githubusercontent.com/ArthurHub/release-android-library/master/android-release-aar.gradle'

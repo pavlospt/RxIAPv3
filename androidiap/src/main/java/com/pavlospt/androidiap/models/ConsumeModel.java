@@ -1,5 +1,7 @@
 package com.pavlospt.androidiap.models;
 
+import android.support.annotation.Nullable;
+
 import com.pavlospt.androidiap.utils.Constants;
 
 /**
@@ -19,16 +21,18 @@ import com.pavlospt.androidiap.utils.Constants;
  */
 public class ConsumeModel {
 
-    private final TransactionDetails transactionDetails;
-    private final PurchaseDataModel purchaseDataModel;
-    private final String productId;
-    private final Throwable throwable;
     private int errorCode = Constants.ERROR_CODE_DEFAULT_VALUE;
+
+    @Nullable
+    private final PurchaseDataModel purchaseDataModel;
+
+    @Nullable
+    private final Throwable throwable;
+
+    @Nullable
     private String errorMessage;
 
     public ConsumeModel(ConsumeModelBuilder builder) {
-        transactionDetails = builder.transactionDetails;
-        productId = builder.productId;
         throwable = builder.throwable;
         errorCode = builder.errorCode;
         errorMessage = builder.errorMessage;
@@ -39,14 +43,7 @@ public class ConsumeModel {
         return errorCode == Constants.ERROR_CODE_DEFAULT_VALUE && throwable == null;
     }
 
-    public TransactionDetails getTransactionDetails() {
-        return transactionDetails;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
+    @Nullable
     public Throwable getThrowable() {
         return throwable;
     }
@@ -55,17 +52,25 @@ public class ConsumeModel {
         return errorCode;
     }
 
+    @Nullable
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    @Nullable
+    public PurchaseDataModel getPurchaseDataModel() {
+        return purchaseDataModel;
+    }
+
     public static class ConsumeModelBuilder {
 
-        private TransactionDetails transactionDetails;
         private PurchaseDataModel purchaseDataModel;
-        private String productId;
-        private Throwable throwable;
         private int errorCode;
+
+        @Nullable
+        private Throwable throwable;
+
+        @Nullable
         private String errorMessage;
 
         public ConsumeModelBuilder() {
@@ -79,16 +84,6 @@ public class ConsumeModel {
 
         public ConsumeModelBuilder setPurchaseDataModel(PurchaseDataModel purchaseDataModel) {
             this.purchaseDataModel = purchaseDataModel;
-            return this;
-        }
-
-        public ConsumeModelBuilder setTransactionDetails(TransactionDetails transactionDetails) {
-            this.transactionDetails = transactionDetails;
-            return this;
-        }
-
-        public ConsumeModelBuilder setProductId(String productId) {
-            this.productId = productId;
             return this;
         }
 

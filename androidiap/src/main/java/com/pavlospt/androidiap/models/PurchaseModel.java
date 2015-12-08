@@ -1,5 +1,7 @@
 package com.pavlospt.androidiap.models;
 
+import android.support.annotation.Nullable;
+
 import com.pavlospt.androidiap.utils.Constants;
 
 /**
@@ -19,15 +21,18 @@ import com.pavlospt.androidiap.utils.Constants;
  */
 public class PurchaseModel {
 
-    private final TransactionDetails transactionDetails;
+    @Nullable
     private final PurchaseDataModel purchaseDataModel;
-    private final String productId, errorMessage;
+
+    @Nullable
+    private final String errorMessage;
+
+    @Nullable
     private final Throwable throwable;
+
     private int errorCode = Constants.ERROR_CODE_DEFAULT_VALUE;
 
     public PurchaseModel(PurchaseModelBuilder builder) {
-        transactionDetails = builder.transactionDetails;
-        productId = builder.productId;
         throwable = builder.throwable;
         errorCode = builder.errorCode;
         errorMessage = builder.errorMessage;
@@ -38,14 +43,7 @@ public class PurchaseModel {
         return errorCode == Constants.ERROR_CODE_DEFAULT_VALUE && throwable == null;
     }
 
-    public TransactionDetails getTransactionDetails() {
-        return transactionDetails;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
+    @Nullable
     public Throwable getThrowable() {
         return throwable;
     }
@@ -54,12 +52,27 @@ public class PurchaseModel {
         return errorCode;
     }
 
+    @Nullable
+    public PurchaseDataModel getPurchaseDataModel() {
+        return purchaseDataModel;
+    }
+
+    @Nullable
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
     public static class PurchaseModelBuilder {
 
-        private TransactionDetails transactionDetails;
+        @Nullable
         private PurchaseDataModel purchaseDataModel;
-        private String productId, errorMessage;
+
+        @Nullable
+        private String errorMessage;
+
+        @Nullable
         private Throwable throwable;
+
         private int errorCode;
 
         public PurchaseModelBuilder() {
@@ -73,16 +86,6 @@ public class PurchaseModel {
 
         public PurchaseModelBuilder setErrorMessage(String errorMessage) {
             this.errorMessage = errorMessage;
-            return this;
-        }
-
-        public PurchaseModelBuilder setTransactionDetails(TransactionDetails transactionDetails) {
-            this.transactionDetails = transactionDetails;
-            return this;
-        }
-
-        public PurchaseModelBuilder setProductId(String productId) {
-            this.productId = productId;
             return this;
         }
 

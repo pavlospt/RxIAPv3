@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                     @Override
                     public void onNext(ConsumeModel consumeModel) {
                         if(consumeModel.isSuccess())
-                            Log.e(TAG,"Product consume on next:" + consumeModel.getProductId());
+                            Log.e(TAG,"Product consume on next:" + consumeModel.getPurchaseDataModel().getProductId());
                         else{
                             Log.e(TAG,"Product consume on next error code:" + consumeModel.getErrorCode());
                         }
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                     @Override
                     public void onNext(PurchaseModel purchaseModel) {
                         if(purchaseModel.isSuccess())
-                            Log.e(TAG,"Product purchase on next:" + purchaseModel.getProductId());
+                            Log.e(TAG,"Product purchase on next:" + purchaseModel.getPurchaseDataModel().getProductId());
                         else
                             Log.e(TAG,"Product purchase on next error code:" + purchaseModel.getErrorCode());
                     }

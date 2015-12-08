@@ -1,5 +1,7 @@
 package com.pavlospt.androidiap.models;
 
+import android.support.annotation.Nullable;
+
 import com.pavlospt.androidiap.utils.Constants;
 
 import java.util.List;
@@ -22,8 +24,14 @@ import java.util.List;
 public class DetailsModel {
 
     private int errorCode = Constants.ERROR_CODE_DEFAULT_VALUE;
+
+    @Nullable
     private String errorMessage;
+
+    @Nullable
     private SkuDetails skuDetail;
+
+    @Nullable
     private List<SkuDetails> skuDetailsList;
 
     public DetailsModel(DetailsModelBuilder builder) {
@@ -53,14 +61,18 @@ public class DetailsModel {
         return errorCode;
     }
 
+
+    @Nullable
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    @Nullable
     public SkuDetails getSkuDetail() {
         return skuDetail;
     }
 
+    @Nullable
     public List<SkuDetails> getSkuDetailsList() {
         return skuDetailsList;
     }
@@ -68,8 +80,14 @@ public class DetailsModel {
     public static class DetailsModelBuilder {
 
         private int errorCode;
+
+        @Nullable
         private String errorMessage;
+
+        @Nullable
         private SkuDetails skuDetail;
+
+        @Nullable
         private List<SkuDetails> skuDetailsList;
 
         public DetailsModelBuilder() {

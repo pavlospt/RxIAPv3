@@ -29,7 +29,6 @@ public class PurchaseDataModel {
     @JsonField(name = JsonProperties.PURCHASE_DATA_MODEL_PRODUCT_ID)
     private String productId;
 
-
     @JsonField(name = JsonProperties.PURCHASE_DATA_MODEL_DEVELOPER_PAYLOAD)
     private String developerPayload;
 

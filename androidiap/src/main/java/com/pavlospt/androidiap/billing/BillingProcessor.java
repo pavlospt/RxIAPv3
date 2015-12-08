@@ -33,14 +33,12 @@ import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
 import com.pavlospt.androidiap.models.ConsumeModel;
 import com.pavlospt.androidiap.models.DetailsModel;
 import com.pavlospt.androidiap.models.PurchaseDataModel;
-import com.pavlospt.androidiap.models.PurchaseInfo;
 import com.pavlospt.androidiap.models.PurchaseModel;
 import com.pavlospt.androidiap.models.SkuDetails;
 import com.pavlospt.androidiap.models.TransactionDetails;
@@ -80,8 +78,6 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 	private static final String LOG_TAG = "rxiapv3";
 	private static final String SETTINGS_VERSION = ".v1";
 	private static final String RESTORE_KEY = ".products.restored" + SETTINGS_VERSION;
-	private static final String MANAGED_PRODUCTS_CACHE_KEY = ".products.cache" + SETTINGS_VERSION;
-	private static final String SUBSCRIPTIONS_CACHE_KEY = ".subscriptions.cache" + SETTINGS_VERSION;
 	private static final String PURCHASE_PAYLOAD_CACHE_KEY = ".purchase.last" + SETTINGS_VERSION;
 
 	private IInAppBillingService billingService;
@@ -162,8 +158,8 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 
 	private void bindPlayServices() {
 		try {
-			Intent iapIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
-			iapIntent.setPackage("com.android.vending");
+			Intent iapIntent = new Intent(Constants.BINDING_INTENT_VALUE);
+			iapIntent.setPackage(Constants.VENDING_INTENT_PACKAGE);
 			getContext().bindService(iapIntent, serviceConnection, Context.BIND_AUTO_CREATE);
 		} catch (Exception e) {
 			Log.e(LOG_TAG, e.toString());
@@ -465,23 +461,22 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 
                     Log.e(LOG_TAG,"" + cachedProducts.includesProduct(productId));
 
-                    PurchaseDataModel transactionDetails = cachedProducts.getDetails(productId);
+                    PurchaseDataModel purchaseDataModel = cachedProducts.getDetails(productId);
 
-                    Log.e(LOG_TAG,"Transaction details is:" + (transactionDetails == null ? "null" : "not null"));
+                    Log.e(LOG_TAG,"Transaction details is:" + (purchaseDataModel == null ? "null" : "not null"));
 
-                    if (transactionDetails != null &&
-                            !TextUtils.isEmpty(transactionDetails.getPurchaseToken())) {
+                    if (purchaseDataModel != null &&
+                            !TextUtils.isEmpty(purchaseDataModel.getPurchaseToken())) {
 
                         int response = billingService
                                 .consumePurchase(
                                         Constants.GOOGLE_API_VERSION,
                                         contextPackageName,
-                                        transactionDetails.getPurchaseToken());
+                                        purchaseDataModel.getPurchaseToken());
                         Log.e(LOG_TAG,"Consume response code:" + response);
                         if (response == Constants.BILLING_RESPONSE_RESULT_OK) {
                             cachedProducts.remove(productId);
-                            consumeModelBuilder.setPurchaseDataModel(transactionDetails);
-                            consumeModelBuilder.setProductId(productId);
+                            consumeModelBuilder.setPurchaseDataModel(purchaseDataModel);
                             if(!subscriber.isUnsubscribed()){
                                 subscriber.onNext(new ConsumeModel(consumeModelBuilder));
                                 subscriber.onCompleted();
@@ -496,7 +491,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                             Log.e(LOG_TAG, String.format("Failed to consume %s: error %d", productId, response));
                         }
                     }else{
-                        if(transactionDetails != null && TextUtils.isEmpty(transactionDetails.getPurchaseToken())){
+                        if(purchaseDataModel != null && TextUtils.isEmpty(purchaseDataModel.getPurchaseToken())){
                             consumeModelBuilder.setErrorCode(Constants.PRODUCT_FOR_CONSUME_WAS_NOT_FOUND);
                             consumeModelBuilder.setErrorMessage(ErrorMessages.PRODUCT_FOR_CONSUME_WAS_NOT_FOUND);
                             if(!subscriber.isUnsubscribed()){
@@ -578,7 +573,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 
     public static boolean isIabServiceAvailable(Context context) {
         final PackageManager packageManager = context.getPackageManager();
-        final Intent intent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        final Intent intent = new Intent(Constants.BINDING_INTENT_VALUE);
         List<ResolveInfo> list = packageManager.queryIntentServices(intent, 0);
         return list.size() > 0;
     }
@@ -868,7 +863,6 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 
                                 //Item was purchase successfully. We return the transaction details
                                 //and productId back to the subscriber
-                                purchaseModelBuilder.setProductId(productId);
                                 purchaseModelBuilder.setPurchaseDataModel(details);
                                 purchaseModelBuilder.setErrorCode(Constants.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED);
                                 purchaseModelBuilder.setErrorMessage(ErrorMessages.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED);

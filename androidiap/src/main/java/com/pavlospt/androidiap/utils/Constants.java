@@ -18,6 +18,9 @@ package com.pavlospt.androidiap.utils;
 public class Constants {
     public static final int GOOGLE_API_VERSION = 3;
 
+	public static final String BINDING_INTENT_VALUE = "com.android.vending.billing.InAppBillingService.BIND";
+	public static final String VENDING_INTENT_PACKAGE = "com.android.vending";
+
     public static final String PRODUCT_TYPE_MANAGED = "inapp";
     public static final String PRODUCT_TYPE_SUBSCRIPTION = "subs";
 

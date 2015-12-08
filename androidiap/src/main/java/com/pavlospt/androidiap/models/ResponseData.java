@@ -76,10 +76,6 @@ public class ResponseData {
         return new Date(purchaseTime);
     }
 
-    public PurchaseInfo.PurchaseState getStateOfPurchase() {
-        return PurchaseInfo.getPurchaseState(responseDataPurchaseState);
-    }
-
     public long getPurchaseTime() {
         return purchaseTime;
     }

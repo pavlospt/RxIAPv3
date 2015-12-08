@@ -1,5 +1,7 @@
 package com.pavlospt.androidiap.models;
 
+import android.support.annotation.Nullable;
+
 import com.pavlospt.androidiap.utils.Constants;
 
 /**
@@ -20,14 +22,21 @@ import com.pavlospt.androidiap.utils.Constants;
 public class PurchaseResultModel {
 
     private int errorCode = Constants.ERROR_CODE_DEFAULT_VALUE;
-    private final TransactionDetails transactionDetails;
-    private final String errorMessage, productId;
+
+    @Nullable
+    private final PurchaseDataModel purchaseDataModel;
+
+    @Nullable
+    private final String errorMessage;
+
+    @Nullable
+    private final String productId;
 
     public PurchaseResultModel(PurchaseResultModelBuilder builder) {
         errorCode = builder.errorCode;
         errorMessage = builder.errorMessage;
-        transactionDetails = builder.transactionDetails;
         productId = builder.productId;
+        purchaseDataModel = builder.purchaseDataModel;
     }
 
     public boolean isSuccess() {
@@ -38,32 +47,38 @@ public class PurchaseResultModel {
         return errorCode;
     }
 
+    @Nullable
     public String getErrorMessage() {
         return errorMessage;
     }
 
-    public TransactionDetails getTransactionDetails() {
-        return transactionDetails;
-    }
-
+    @Nullable
     public String getProductId() {
         return productId;
     }
 
     public static class PurchaseResultModelBuilder {
 
-        private TransactionDetails transactionDetails;
-        private String productId;
-        private Throwable throwable;
         private int errorCode;
+
+        @Nullable
+        private PurchaseDataModel purchaseDataModel;
+
+        @Nullable
+        private String productId;
+
+        @Nullable
+        private Throwable throwable;
+
+        @Nullable
         private String errorMessage;
 
         public PurchaseResultModelBuilder() {
 
         }
 
-        public PurchaseResultModelBuilder setTransactionDetails(TransactionDetails transactionDetails) {
-            this.transactionDetails = transactionDetails;
+        public PurchaseResultModelBuilder setPurchaseDataModel(PurchaseDataModel purchaseDataModel) {
+            this.purchaseDataModel = purchaseDataModel;
             return this;
         }
 
