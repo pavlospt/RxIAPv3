@@ -1,5 +1,6 @@
 [![Circle CI](https://circleci.com/gh/pavlospt/RxIAPv3/tree/master.svg?style=svg)](https://circleci.com/gh/pavlospt/RxIAPv3/tree/master)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RxIAPv3-green.svg?style=true)](https://android-arsenal.com/details/1/2879)
+[![Download](https://api.bintray.com/packages/pavlospt/android-libraries/RxIAPv3/images/download.svg)](https://bintray.com/pavlospt/android-libraries/RxIAPv3/_latestVersion)
 
 # RxIAPv3
 Android In-App Billing Library which provides several Rx Methods for Purchasing, Consuming and Listing Products
