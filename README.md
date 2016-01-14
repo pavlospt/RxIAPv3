@@ -10,10 +10,6 @@ This library provides the existing functionality of Anjlab's initial work and as
 
 This project is open to a lot of modifications to be better. I will try fixing a lot of things as the time goes by. I am also open to any pull request that can help the project :) 
 
-DISCLAIMER
-==========
-The project has some more work before it can be used in production. This is an Alpha level release. If you use it for production applications, please do that on your own responsibility.
-
 How To Install
 ==============
 
