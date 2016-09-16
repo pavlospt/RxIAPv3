@@ -74,7 +74,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 	private static final Date dateMerchantLimit1 = new Date(2012, 12, 5); //5th December 2012
 	private static final Date dateMerchantLimit2 = new Date(2015, 7, 20); //21st July 2015
 
-	private static final int PURCHASE_FLOW_REQUEST_CODE = 2061984;
+	private static final int PURCHASE_FLOW_REQUEST_CODE = 65535; // Can only use lower 16 bits for requestCode
 	private static final String LOG_TAG = "rxiapv3";
 	private static final String SETTINGS_VERSION = ".v1";
 	private static final String RESTORE_KEY = ".products.restored" + SETTINGS_VERSION;
@@ -106,6 +106,10 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 	};
 
     public static void init(Context context) {
+        initHawk(context);
+    }
+
+    private static void initHawk(Context context) {
         Hawk.init(context)
                 .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
                 .setStorage(HawkBuilder.newSharedPrefStorage(context))
@@ -113,7 +117,7 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                 .setCallback(new HawkBuilder.Callback() {
                     @Override
                     public void onSuccess() {
-                        Log.e(LOG_TAG," Hawk initiated.");
+                        Log.d(LOG_TAG," Hawk initiated.");
                     }
 
                     @Override
@@ -124,29 +128,14 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
                 .build();
     }
 
-	public BillingProcessor(Context context, String licenseKey, BillingProcessorListener listener) {
+    public BillingProcessor(Context context, String licenseKey, BillingProcessorListener listener) {
 		this(context, licenseKey, null, listener);
 	}
 
 	public BillingProcessor(Context context, String licenseKey, String merchantId, BillingProcessorListener listener) {
 		super(context);
-        Hawk.init(context)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-                .setStorage(HawkBuilder.newSharedPrefStorage(context))
-                .setLogLevel(LogLevel.FULL)
-                .setCallback(new HawkBuilder.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Log.e(LOG_TAG," Hawk initiated.");
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        Log.e(LOG_TAG,"Hawk failure to initiate:" + e.getMessage());
-                    }
-                })
-                .build();
-		this.signatureBase64 = licenseKey;
+        initHawk(context);
+        this.signatureBase64 = licenseKey;
         this.contextPackageName = context.getApplicationContext().getPackageName();
         this.cachedProducts = new BillingCache(context);
         this.cachedSubscriptions = new BillingCache(context);
