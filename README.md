@@ -16,7 +16,7 @@ How To Install
 This library is available on MavenCentral and on Bintray as well. All you need to do is add the following dependency on your application's ```build.gradle``` file.
 
 ```
-compile 'com.github.pavlospt:rxiapv3:1.2'
+compile 'com.github.pavlospt:rxiapv3:1.2.1'
 ```
 
 How To Use
