@@ -19,8 +19,12 @@ import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.pavlospt.androidiap.utils.JsonProperties;
 
+import java.math.BigDecimal;
+
 @JsonObject
 public class SkuDetails {
+
+    private static final BigDecimal MILLION = BigDecimal.valueOf(1000000);
 
     @JsonField(name = JsonProperties.SKU_DETAILS_PRODUCT_ID)
 	private String productId;
@@ -37,8 +41,8 @@ public class SkuDetails {
     @JsonField(name = JsonProperties.SKU_DETAILS_PRICE_CURRENCY_CODE)
     private String currency;
 
-    @JsonField(name = JsonProperties.SKU_DETAILS_PRICE_AMOUNT_MICROS)
-    private Double priceValue;
+    @JsonField(name = JsonProperties.SKU_DETAILS_PRICE_AMOUNT_MICROS, typeConverter = BigDecimalTypeConverter.class)
+    private BigDecimal priceValueMicros;
 
     @JsonField(name = JsonProperties.SKU_DETAILS_PRICE)
     private String priceText;
@@ -71,8 +75,16 @@ public class SkuDetails {
         return currency;
     }
 
-    public Double getPriceValue() {
-        return priceValue / 1000000;
+    public BigDecimal getPriceValue() {
+        return priceValueMicros.divide(MILLION);
+    }
+
+    BigDecimal getPriceValueMicros() {
+        return priceValueMicros;
+    }
+
+    void setPriceValueMicros(BigDecimal priceValueMicros) {
+        this.priceValueMicros = priceValueMicros;
     }
 
     public String getPriceText() {
@@ -99,17 +111,13 @@ public class SkuDetails {
         this.currency = currency;
     }
 
-    public void setPriceValue(Double priceValue) {
-        this.priceValue = priceValue;
-    }
-
     public void setPriceText(String priceText) {
         this.priceText = priceText;
     }
 
     @Override
 	public String toString() {
-		return String.format("%s: %s(%s) %f in %s (%s)", productId, title, description, priceValue, currency, priceText);
+		return String.format("%s: %s(%s) %f in %s (%s)", productId, title, description, priceValueMicros, currency, priceText);
 	}
 
 	@Override

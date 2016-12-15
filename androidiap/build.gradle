@@ -18,6 +18,11 @@ android {
         versionName "1.2.1"
     }
 
+    sourceSets {
+        test {
+            java.srcDirs = ['src/test/java', 'src/integrationTest/java']
+        }
+    }
 }
 
 dependencies {
@@ -27,6 +32,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.10'
     compile 'com.github.orhanobut:hawk:1.20'
     compile 'com.android.support:support-annotations:23.3.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.squareup.assertj:assertj-android:1.1.1'
 }
 
 //Maven Central Push
