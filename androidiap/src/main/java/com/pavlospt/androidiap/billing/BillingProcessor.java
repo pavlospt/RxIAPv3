@@ -30,12 +30,11 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 import com.android.vending.billing.IInAppBillingService;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
-import com.orhanobut.hawk.LogLevel;
+import com.orhanobut.hawk.LogInterceptor;
+import com.orhanobut.hawk.NoEncryption;
 import com.pavlospt.androidiap.models.ConsumeModel;
 import com.pavlospt.androidiap.models.DetailsModel;
 import com.pavlospt.androidiap.models.PurchaseDataModel;
@@ -111,18 +110,11 @@ public class BillingProcessor extends BillingBase implements IBillingProcessor{
 
     private static void initHawk(Context context) {
         Hawk.init(context)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-                .setStorage(HawkBuilder.newSharedPrefStorage(context))
-                .setLogLevel(LogLevel.FULL)
-                .setCallback(new HawkBuilder.Callback() {
+                .setEncryption(new NoEncryption())
+                .setLogInterceptor(new LogInterceptor() {
                     @Override
-                    public void onSuccess() {
-                        Log.d(LOG_TAG," Hawk initiated.");
-                    }
-
-                    @Override
-                    public void onFail(Exception e) {
-                        Log.e(LOG_TAG,"Hawk failure to initiate:" + e.getMessage());
+                    public void onLog(String message) {
+                        Log.d(LOG_TAG, message);
                     }
                 })
                 .build();

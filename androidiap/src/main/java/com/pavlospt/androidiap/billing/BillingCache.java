@@ -55,13 +55,13 @@ public class BillingCache extends BillingBase {
 
 	public void remove(String productId) {
         if(Hawk.contains(productId))
-            Hawk.remove(productId);
+            Hawk.delete(productId);
         if(productIds.contains(productId))
             productIds.remove(productId);
 	}
 
 	public void clear() {
-        Hawk.clear();
+        Hawk.deleteAll();
         productIds = new ArrayList<>();
 	}
 
